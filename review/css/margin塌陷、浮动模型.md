@@ -5,7 +5,7 @@
     width:400px;
     height:400px;
     background: #00FFFF;
-    margin-bottom: 20px;
+    margin-top: 20px;
   }  
 .son{
     width:200px;
@@ -14,16 +14,14 @@
     margin-top: 40px;
 }
 ```
-&nbsp;  &nbsp; &nbsp; 我们对一对嵌套的盒子作如上样式设置，我们期望父级上边距为20px;子元素上边距为40px;实际上，父元素和子元素的上边距都变成了40px。
+ 我们对一对嵌套的盒子作如上样式设置，我们期望父级上边距为20px;子元素上边距为40px;实际上，父元素和子元素的上边距都变成了40px。
 
 **结论：当一个块级元素包含在另一个块级元素之中时，子元素与父元素之间也会产生重叠现象，重叠后的外边距取其中最大者。**
 
 Ps:margin重叠时margin值计算方法：
-	&nbsp; &nbsp;a、全部都为正值，取最大者；
-	&nbsp; &nbsp;b、不全是正值，则都取绝对值，然后用正值减去最大值；
-	&nbsp; &nbsp;c、没有正值，则都取绝对值，然后用0减去最大值。
-
-
+- 全部都为正值，取最大者；
+- 不全是正值，则都取绝对值，然后用正值减去最大值；
+- 没有正值，则都取绝对值，然后用0减去最大值。
 
 	
 针对类型一：触发父级BFC（Block Formatting Context ），改变父级的渲染规则
@@ -31,7 +29,8 @@ Ps:margin重叠时margin值计算方法：
 * float的属性不是none; 
 * overflow的属性不是visible; 
 * position:absolute / fixed; 
-* display：inline-block / table-cells / table-caption. 
+* display：inline-block / table-cells / table-caption.
+
 **解决方案各有优缺点，`例如：overflow:hidden; 溢出部分隐藏 但溢出部分有用时，不能用这个方法`   在解决这个问题时要根据实际情况进行选取。哪个不影响用哪个***
 
 #### 类型二  
@@ -79,6 +78,7 @@ Ps:margin重叠时margin值计算方法：
 }
 ```
 效果图：![这里写图片描述](https://img-blog.csdn.net/20180624160209473?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dhb3NoYW55YW5nemhpXzE5OTk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
 **原因**: 浮动元素产生浮动流，所有产生浮动流的元素，块级元素看不到它们，但产生了bfc的元素和文本元素类属性（inline）以及文本都能看到浮动元素。
 
 **解决方案：清除浮动流**
