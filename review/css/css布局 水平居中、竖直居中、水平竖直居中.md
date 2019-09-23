@@ -111,8 +111,7 @@ flex第二种
 假定父元素是盒子容器且高度已经设定
 ### 1.单行文本
 - 设置 line-height 等于父元素高度
-### 2.子元素是块级元素，高度未定
-- 父元素设定display:table-cell;vertical-align:middle;
+### 2. 父元素设定display:table-cell;vertical-align:middle;
 ```css
 .father {
     height: 200px;
@@ -126,7 +125,30 @@ flex第二种
     background-color: antiquewhite;
 }
 ```
-### 3.flex
+### 3.inline-block+vertical-align: middle+伪元素 兼容ie7
+基本思想是使用display: inline-block, vertical-align: middle和一个伪元素让内容块处于容器中央。
+```css
+.father {
+    width: 200px;
+    height: 200px;
+    border: 1px solid red;
+}
+.son {
+    width: 50px;
+    height: 50px;
+    background-color: aliceblue;
+}
+.father::after,
+.son {
+    display: inline-block;
+    vertical-align: middle;
+}
+.father::after {
+    content: '';
+    height: 100%;
+}
+```
+### 4.flex
 - 父元素 `display:flex;align-items:center;`
 ```css
 .father {
@@ -141,7 +163,7 @@ flex第二种
     background-color: antiquewhite;
 }
 ```
-### 4.transform
+### 5.transform
 - 父元素`position:relative;`
 - 子元素`position:absolute;top:50%;transform:translate(0,-50%)`
 ```css
@@ -159,7 +181,7 @@ flex第二种
     background-color: antiquewhite;
 }
 ```
-### 5.盒模型
+### 6.盒模型
 子元素是块级元素且高度已经设定，通过margin-top或margin-bottom实现。计算（父元素高度-子元素高度）/ 2；
 ```css
 .father {
@@ -174,29 +196,7 @@ flex第二种
     background: darkblue;
 }
 ```
-### 6.table第二种 兼容ie7
-基本思想是使用display: inline-block, vertical-align: middle和一个伪元素让内容块处于容器中央。
-```css
-.father {
-        width: 200px;
-        height: 200px;
-        border: 1px solid red;
-}
-.son {
-    width: 50px;
-    height: 50px;
-    background-color: aliceblue;
-}
-.father::after,
-.son {
-    display: inline-block;
-    vertical-align: middle;
-}
-.father::after {
-    content: '';
-    height: 100%;
-}
-```
+
 ## 水平竖直居中
 flex, 盒模型, transform, 绝对定位同时适合水平居中和竖直居中，故可得
 ### flex
