@@ -19,7 +19,7 @@ TCP/IP协议族按层次分别为以下4层:应用层、传输层、网络层和
 
 用来处理连接网络的硬件部分。
 ### TCP/IP通信传输流
-![image](https://note.youdao.com/favicon.ico)
+![image](https://github.com/zyg1999/Note/blob/master/review/%E7%BD%91%E7%BB%9C/pic/save_share_review_picture_1569393278.jpeg)
 
 ### 负责传输的IP协议
 IP网际协议位于网络层。
@@ -35,8 +35,8 @@ IP间通信依赖MAC地址。中转时利用下一站中转设备MAC地址搜索
 
 发送端首先发送一个带SYN标志数据包给对方。接收端收到，传回带有SYN/ACK标志的数据包表示穿搭确认信息。发送端再传回一个带有ACK标志数据包，代表握手结束。
 
-![image](https://note.youdao.com/favicon.ico)
+![image](https://github.com/zyg1999/Note/blob/master/review/%E7%BD%91%E7%BB%9C/pic/save_share_review_picture_1569393330.jpeg)
 ### 负责域名解析的DNS服务
 提供域名到IP地址间双向解析，位于应用层
 ### 各种协议与HTTP协议关系
-![image](https://note.youdao.com/favicon.ico)
+![image](https://github.com/zyg1999/Note/blob/master/review/%E7%BD%91%E7%BB%9C/pic/save_share_review_picture_1569393340.jpeg)
