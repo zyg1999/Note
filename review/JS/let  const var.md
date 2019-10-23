@@ -40,7 +40,7 @@ console.log(c) // Uncaught ReferenceError: c is not defined
 - 全局`var`声明，成为`Global(window)`属性。具有覆盖性
 - `let const`声明的变量保存在名为Script的作用域中
 
-![image](https://note.youdao.com/favicon.ico)
+![image](https://github.com/zyg1999/Note/blob/master/review/JS/pic/TIM%E5%9B%BE%E7%89%8720191020195815.png)
 ### for循环中的区别
 - `let const`声明i不受闭包影响
 - 用`let const`声明的变量在每次循环都会重新声明一个新的变量，并用之前的值去初始化。
