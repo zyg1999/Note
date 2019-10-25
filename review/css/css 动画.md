@@ -129,5 +129,10 @@ fill-mode|控制动画结束后，元素的样式，有四个值：none(回到�
 - animationstart 动画开始事件，如果有 delay 属性的话，那么等到动画真正开始再触发，如果是没有 delay，那么当动画效果应用到元素时，这个事件会被触发。
 - animationend 动画结束的事件，和 transitionend 类似。如果有多个动画，那么这个事件会触发多次，像上边的例子，这个事件会触发三次。如果 animation-iteration-count 设置为 infinite，那么这个事件则不会被触发。
 - animationiteration 动画循环一个生命周期结束的事件，和上一个事件不一样的是，这个在每次循环结束一段动画时会触发，而不是整个动画结束时触发。无限循环时，除非 duration 为 0，否则这个事件会无限触发。
+### transition 和 animation总结
+animation和js的交互不是很密切，因为它把动画的各个部分都写死了，只是通过js更换类名来选择不同的动画而已。
 
+- 如果需要灵活地定制各个帧以及循环，这个时候animation会更好一些
+- 如果只需要类似from => to这种效果，使用transition会更好一些
+- 如需要js来设定设定动画的属性，使用transition会更好一些
 ### requestAnimationFrame
