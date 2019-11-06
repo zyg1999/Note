@@ -252,22 +252,3 @@ flex, 盒模型, transform, 绝对定位同时适合水平居中和竖直居中�
     background-color: antiquewhite;
 }
 ```
-### 绝对定位
-```css
-.father {
-    height: 100px;
-    width: 100px;
-    background-color: cadetblue;
-    position: relative;
-}
-.son {
-    width: 20px;
-    height: 20px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-color: antiquewhite;
-}
-```
