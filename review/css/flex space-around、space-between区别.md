@@ -1,10 +1,3 @@
-### 居中
-父元素
-```css
-.father{
-    
-}
-```
 ### justify-content
 ![image](http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071010.png)
 - flex-start（默认值）：左对齐
