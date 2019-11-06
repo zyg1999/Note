@@ -45,9 +45,9 @@ Function.prototype.myBind=function(context=window,...args1){
         return undefined
     }
     const _this=this
-    return F(...args2){
+    return function F(...args2){
         if(this instanceof F){
-            return new _this(...args1,args2)
+            return new _this(...args1,...args2)
         }
         return _this.apply(context,args1.concat(args2))
     }
