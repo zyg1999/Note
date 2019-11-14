@@ -24,7 +24,9 @@ CSS布局是相对于布局视口计算的，布局视口大小一般为浏览�
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,user-scalable=no">
 ```
 - width控制视口的宽度
-  -直接指定确切的数字比如width=600
+  
+  - 直接指定确切的数字比如width=600
+  
   - 指定width=device-width，代表缩放为100%时以CSS像素计量的宽度
 - initial-scale：页面最初加载时的缩放值，为一个数字，可为浮点数
 - maxinum-scale：允许用户的最大缩放值，为一个数字，可为浮点数
