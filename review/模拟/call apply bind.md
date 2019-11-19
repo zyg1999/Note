@@ -36,20 +36,33 @@ Function.prototype.myApply=function(context=window,args){
 }
 ```
 ### bind
-- 处理参数，返回一个闭包
-- 判断是否为构造函数调用，如果是则使用new调用
-- 若不是，使用apply，将context和处理好的参数传入
+
+- 保存this
+- 构建中间函数保存原函数原型
+- 返回一个闭包，判断是否用于构造函数`this instanceof ft` 
+
+- 箭头函数的 `this` 永远指向它所在的作用域
 ```js
-Function.prototype.myBind=function(context=window,...args1){
-    if(this === Function.prototype){
-        return undefined
+Function.prototype.myBind = function(context = window, ...args1) {
+      if (typeof this !== 'function') {
+        throw TypeError('Bind must be called on a function')
+      }
+      // 保存 this
+      const _this = this
+      // 构建一个干净的函数，用于保存原函数的原型，并且避免重复执行
+      var ft = function() {}
+      let fn = function(...args2) {
+         // this instanceof nop, 判断是否使用 new 来调用 bound
+        // 如果是 new 来调用的话，this的指向就是其实例，
+        // 如果不是 new 调用的话，就改变 this 指向到指定的对象 o
+        return _this.apply(
+          this instanceof ft ? this : context, // 判断是否用于构造函数
+          args1.concat(args2)
+        )
+      }
+      // 箭头函数没有 prototype，箭头函数this永远指向它所在的作用域
+      this.prototype ? (ft.prototype = this.prototype) : null
+      fn.prototype = new ft()
+      return fn
     }
-    const _this=this
-    return function F(...args2){
-        if(this instanceof F){
-            return new _this(...args1,...args2)
-        }
-        return _this.apply(context,args1.concat(args2))
-    }
-}
 ```
