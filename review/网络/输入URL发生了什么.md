@@ -442,7 +442,7 @@ JS的解析是由浏览器的JS引擎完成的。由于JavaScript是单进程运
 
 先看一段代码
 
-```
+```js
 setTimeout(function(){
     console.log('定时器开始啦')
 });
@@ -457,7 +457,6 @@ new Promise(function(resolve){
 });
 
 console.log('代码执行结束');
-复制代码
 ```
 
 结果我想大家都应该知道。主要来介绍JavaScript的解析，至于Promise等下一节再说
@@ -618,8 +617,6 @@ setTimeout(function() {
   2,4
   ```
 
-  ,来看看事件队列
-
   ![队列2](https://user-gold-cdn.xitu.io/2019/4/28/16a634ca14600384?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
 - 去微任务看看，我们先处理`process.nextTick2`,输出`3`,接着再来执行`Promise2`,输出`5`。 第二轮循环执行完毕。现在一共输出了`1,7,6,8,2,4,3,5`
@@ -645,3 +642,6 @@ setTimeout(function() {
   .
 
 > 注意，这段代码执行结果可能与node等环境不同而发生变化。
+
+原文链接： https://juejin.im/post/5cc573c85188252e741ccbb6 
+
