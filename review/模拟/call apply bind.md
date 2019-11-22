@@ -48,8 +48,9 @@ Function.prototype.myBind = function(context = window, ...args1) {
       }
       // 保存 this
       const _this = this
+      let fTemp = function(){}
       let fn = function(...args2) {
-         // this instanceof fn, 判断是否使用 new 来调用 fn
+        // this instanceof fn, 判断是否使用 new 来调用 fn
         // 如果是 new 来调用的话，this的指向就是其实例，
         // 如果不是 new 调用的话，就改变 this 指向到指定的对象
         return _this.apply(
@@ -58,7 +59,8 @@ Function.prototype.myBind = function(context = window, ...args1) {
         )
       }
       // 维护原型关系
-      this.prototype ? (fn.prototype = this.prototype) : null
+      this.prototype ? (fTemp.prototype = this.prototype) : null
+      fn.prototype = new fTemp()
       return fn
     }
 ```
