@@ -1,24 +1,25 @@
-- 作为对象调用时，指向该对象 
+### this的指向有哪几种情况？
+
+this代表函数调用相关联的对象，通常页称之为执行上下文。
+
+1. 作为函数直接调用，非严格模式下，this指向window，严格模式下，this指向undefined；
+2. 作为某对象的方法调用，this通常指向调用的对象。
+3. 使用apply、call、bind 可以绑定this的指向。
+4. 在构造函数中，this指向新创建的对象
+5. 箭头函数没有单独的this值，this在箭头函数创建时确定，它与声明所在的上下文相同。
+
+### 多次bind,上下文是什么？
+
 ```js
-obj.b(); // 指向obj 
-```
-- 作为函数调用
-```js
-var b = obj.b; b(); // 指向全局window
-```
-- 作为构造函数调用
-```js
-var b = new Fun(); // this指向当前实例对象 
-```
-- 作为call与apply调用 
-```js
-obj.b.apply(object, []); // this指向当前的object
+let a = {}
+let fn = function () { console.log(this) }
+fn.bind().bind(a)()//window
 ```
 
-### 普通函数 VS 箭头函数
+不管我们给函数 bind 几次，fn 中的 this 永远由第一次 bind 决定，所以结果永远是 window。
 
-写法上的区别
-箭头函数体内的this对象，就是定义时所在的对象，而不是使用时所在的对象。
-箭头函数不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。
-不可以使用arguments对象，该对象在函数体内不存在。如果要用，可以用 rest 参数代替。
-不可以使用yield命令，因此箭头函数不能用作 Generator 函数。
+### 多个this规则出现，this指向哪里？
+
+优先级如下
+
+**new > bind/call/apply >   隐式绑定（即对象调方法）> 默认绑定（即严格undefined，非严格window）**
