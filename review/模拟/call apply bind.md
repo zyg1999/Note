@@ -38,7 +38,6 @@ Function.prototype.myApply=function(context=window,args){
 ### bind
 
 - 保存this
-- 构建中间函数保存原函数原型
 - 返回一个闭包，判断是否用于构造函数`this instanceof fn `
 
 - 箭头函数的 `this` 永远指向它所在的作用域
@@ -49,8 +48,6 @@ Function.prototype.myBind = function(context = window, ...args1) {
       }
       // 保存 this
       const _this = this
-      // 构建一个干净的函数，用于保存原函数的原型，并且避免重复执行
-      var ft = function() {}
       let fn = function(...args2) {
          // this instanceof fn, 判断是否使用 new 来调用 fn
         // 如果是 new 来调用的话，this的指向就是其实例，
@@ -61,8 +58,7 @@ Function.prototype.myBind = function(context = window, ...args1) {
         )
       }
       // 维护原型关系
-      this.prototype ? (ft.prototype = this.prototype) : null
-      fn.prototype = new ft()
+      this.prototype ? (fn.prototype = this.prototype) : null
       return fn
     }
 ```

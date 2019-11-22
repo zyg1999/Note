@@ -25,15 +25,55 @@ session一个场景是购物车，添加了商品之后客户端处可以知道�
  - max-age
    - 过期时间有多长
    - 默认在浏览器关闭时失效
+   
  - expires
+   
    - 到哪个时间点过期
+   
  - secure
+   
    - 表示这个cookie只会在https的时候才会发送
+   
  - HttpOnly
    - 设置后无法通过在js中使用document.cookie访问
    - 保障安全，防止攻击者盗用用户cookie
+   
  - domain
+   
    - 表示该cookie对于哪个域是有效的。 
+   
+- path
+
+  -  为服务器特定文档指定Cookie 。 这个属性设置的url且带有这个前缀的url路径都是有效的 。
+
+  > m.zhuanzhuan.58.com 和 m.zhaunzhuan.58.com/user/这两个url。 m.zhuanzhuan.58.com 设置cookie
+  >
+  > ```
+  > Set-cookie: id="123432";domain="m.zhuanzhuan.58.com";
+  > ```
+  >
+  > m.zhaunzhuan.58.com/user/ 设置cookie：
+  >
+  > ```
+  > Set-cookie：user="wang", domain="m.zhuanzhuan.58.com"; path=/user/
+  > ```
+  >
+  > 但是访问其他路径m.zhuanzhuan.58.com/other/就会获得
+  >
+  > ```
+  > cookie: id="123432"
+  > ```
+  >
+  > 如果访问m.zhuanzhuan.58.com/user/就会获得
+  >
+  > ```
+  >   cookie: id="123432"
+  >   cookie: user="wang"
+  > ```
+
+
+
+### session
 
 
 ## session

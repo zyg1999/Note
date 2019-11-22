@@ -198,7 +198,7 @@ flex第二种
 ```
 
 ## 水平竖直居中
-flex, 盒模型, transform, 绝对定位同时适合水平居中和竖直居中，故可得
+flex, 盒模型, transform+绝对定位
 ### flex
 - 父元素`display:flex;justify-content: center;align-items: center;`
 ```css

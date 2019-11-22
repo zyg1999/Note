@@ -76,6 +76,34 @@ obj.say();
 ###  实现ES5中Function原型的bind方法， 使得以下程序最后能输出'success' 
 
 ```js
+function Animal(name, color) {
+ this.name = name;
+ this.color = color;
+}
+Animal.prototype.say = function () {
+ return `I'm a ${this.color} ${this.name}`;
+};
+const Cat = Animal.bind(null, 'cat');
+const cat = new Cat('white');
+if (cat.say() === 'I\'m a white cat' && cat instanceof Cat && cat instanceof Animal) {
+ console.log('success');
+}
+```
 
+```js
+Function.prototype.myBind = function(context = window, ...args1) {
+  if (typeof this !== 'function') {
+    throw TypeError('必须是函数调用')
+  }
+  const _this = this
+  let fn = function(...args2) {
+    return _this.apply(
+      this instanceof fn ? this : context,
+      args1.concat(args2)
+    )
+  }
+  this.prototype ? (fn.prototype = this.prototype) : null
+  return fn
+}
 ```
 
