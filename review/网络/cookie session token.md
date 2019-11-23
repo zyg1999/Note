@@ -73,8 +73,6 @@ session一个场景是购物车，添加了商品之后客户端处可以知道�
 
 
 
-### session
-
 
 ## session
 
@@ -91,8 +89,6 @@ session一个场景是购物车，添加了商品之后客户端处可以知道�
  - cookie在客户端中存放，容易伪造，不如session安全
  - session会消耗大量服务器资源，cookie在每次HTTP请求中都会带上，影响网络性能
  - 域的支持范围不一样，比方说a.com的Cookie在a.com下都能用，而www.a.com的Session在api.a.com下都不能用
-
-
 
 ### 为什么要有token
 
@@ -112,3 +108,8 @@ sessionID当数量增大到一定程度，会造成服务器压力。
 4. 客户端收到Token,存储到本地,如Cookie,SessionStorage,LocalStorage.我们是存在SessionStorage
 5. 客户端每次像服务器请求API接口时候,都要带上Token，放在请求头.
 6. 服务端收到请求,验证Token（用同样的算法和密钥， 对数据再计算一次签名 ）,如果通过就返回数据,否则提示报错信息.
+
+### 关于这三种方式的提升
+
+- session相对于cookie来说在xss和csrf攻击上来说，并没有什么提升。提升在于，session只是一个sessionID，session可以将重要信息存储在服务器，来防止泄露或篡改。
+- token可以预防csrf是因为token在发送请求时不会被自动携带，相对session还有一点的提升是不用像session一样存储大量sessionId，只是对发来的token和后台新计算的token进行对比从而鉴权，减少了服务器的压力
