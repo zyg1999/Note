@@ -4,7 +4,7 @@ JS变量和类型
 - `Null`:只包含一个值`null`
 - `Undefined`:只包含一个值`undefined`
 - `Boolean`:包含两个值`true`和`false`
-- `Numver`:整数或浮点数，还包括特殊值（`-Infinity`、`+Infinity`、`NaN`）
+- `Number`:整数或浮点数，还包括特殊值（`-Infinity`、`+Infinity`、`NaN`）
 - `String`:一串表示文本值的字符序列
 - `Symbol`：一种实例是唯一且不可改变的数据类型
 - `BigInt`:es10新增

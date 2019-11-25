@@ -3,7 +3,7 @@
 #### 例1：
 
 ```js
- function Foo() {
+function Foo() {
   getName = function() {
     console.log(1)
   }
