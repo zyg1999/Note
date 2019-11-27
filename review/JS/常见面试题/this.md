@@ -96,14 +96,61 @@ Function.prototype.myBind = function(context = window, ...args1) {
     throw TypeError('必须是函数调用')
   }
   const _this = this
+  let fT = function(){}
   let fn = function(...args2) {
     return _this.apply(
       this instanceof fn ? this : context,
       args1.concat(args2)
     )
   }
-  this.prototype ? (fn.prototype = this.prototype) : null
+  this.prototype ? (fT.prototype = this.prototype) : null
+  fn.prototype = new fT()
   return fn
 }
 ```
 
+### 看代码说结果
+
+```js
+let a = {
+  b: function() { 
+    console.log(this) 
+  },
+  c: () => {
+    console.log(this)
+  }
+}
+
+a.b()   // a
+a.c()   // window
+
+let d = a.b
+d()     //相当于window.d() window
+```
+
+### 看代码说结果
+
+```js
+var name1 = 1;
+
+function test() {
+	let name1 = 'kin';
+	let a = {
+		name1: 'jack',
+		fn: () => {
+      		var name1 = 'black'
+      		console.log(this.name1)
+    	}
+   }
+	return a;
+}
+
+test().fn() // ?
+```
+
+答案： 输出1 
+
+因为fn处绑定的是箭头函数，箭头函数并不创建this，它只会从自己的作用域链的上一层继承this。这里它的上一层是test()，非严格模式下test中this值为window。 
+
+ - 如果在绑定fn的时候使用了function，那么答案会是 'jack'
+ - 如果第一行的 var 改为了 let，那么答案会是 undefind， 因为let不会挂到window上
