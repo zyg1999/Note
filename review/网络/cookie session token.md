@@ -3,10 +3,10 @@
 ## 应用场景
 
 cookie: 
-登录网站，第一天输入用户名密码登录了，第二天再打开很多情况下就直接打开了。这个时候用到的一个机制就是cookie。
 
-session: 
-session一个场景是购物车，添加了商品之后客户端处可以知道添加了哪些商品，而服务器端如何判别呢，所以也需要存储一些信息就用到了session。
+HTTP是无状态的：在同一个连接中，两个执行成功的请求之间是没有关系的。因此用户没有办法在同一个网站中进行连续的交互，比如在一个电商网站里，用户把某个商品加入到购物车，切换一个页面后再次添加了商品，这两次添加商品的请求之间没有关联，浏览器无法知道用户最终选择了哪些商品。 cookie就是
+
+登录网站，第一天输入用户名密码登录了，第二天再打开很多情况下就直接打开了。这个时候用到的一个机制就是cookie;
 
 
 ## cookie
@@ -35,43 +35,26 @@ session一个场景是购物车，添加了商品之后客户端处可以知道�
    - 表示这个cookie只会在https的时候才会发送
    
  - HttpOnly
-   - 设置后无法通过在js中使用document.cookie访问
-   - 保障安全，防止攻击者盗用用户cookie
+   - 设置后无法通过在js中使用document.cookie访问。防止xss
    
  - domain
    
-   - 表示该cookie对于哪个域是有效的。 
+   - 表示该cookie对于哪个域是有效的。 子域有效
+   
+   > 例如a.org设置了cookie，则my.a.org也包含此cookie
    
 - path
 
-  -  为服务器特定文档指定Cookie 。 这个属性设置的url且带有这个前缀的url路径都是有效的 。
+  -  为服务器特定文档指定Cookie 。 这个属性设置的url且带有这个前缀的url路径都是有效的 。也就是子路径有效
 
-  > m.zhuanzhuan.58.com 和 m.zhaunzhuan.58.com/user/这两个url。 m.zhuanzhuan.58.com 设置cookie
+  > 例如，设置 `Path=/docs`，则以下地址都会匹配：
   >
-  > ```
-  > Set-cookie: id="123432";domain="m.zhuanzhuan.58.com";
-  > ```
-  >
-  > m.zhaunzhuan.58.com/user/ 设置cookie：
-  >
-  > ```
-  > Set-cookie：user="wang", domain="m.zhuanzhuan.58.com"; path=/user/
-  > ```
-  >
-  > 但是访问其他路径m.zhuanzhuan.58.com/other/就会获得
-  >
-  > ```
-  > cookie: id="123432"
-  > ```
-  >
-  > 如果访问m.zhuanzhuan.58.com/user/就会获得
-  >
-  > ```
-  >   cookie: id="123432"
-  >   cookie: user="wang"
-  > ```
+  > - `/docs`
+  > - `/docs/Web/`
+  > - `/docs/Web/HTTP`
 
-
+-  SameSite （实验阶段，支持性不好）
+  -  允许服务器要求某个cookie在CSRF跨站请求时不会被发送 
 
 
 ## session
@@ -83,7 +66,7 @@ session一个场景是购物车，添加了商品之后客户端处可以知道�
  - session依赖于cookie，因为sessionID是存放在cookie中的。
 
 
-## sesssion与cookie的区别
+## session与cookie的区别
 
  - cookie存在客户端，session存在于服务端。
  - cookie在客户端中存放，容易伪造，不如session安全
@@ -92,6 +75,12 @@ session一个场景是购物车，添加了商品之后客户端处可以知道�
 
 ### 为什么要有token
 
+#### 1、安全方面
+
+首先session解决了cookie带来的敏感信息泄露问题。其次尽管cookie可以设置http-only字段和secure来防止xss攻击，但是对于CSRF来说还是无能为力的
+
+#### 2、性能方面
+
 sessionID当数量增大到一定程度，会造成服务器压力。
 
 若用两个机器组成了一个集群，甲通过机器A登录了系统，  那session id会保存在机器A上，要是下一次请求被转发至B怎么办？只好进行**session复制**，将sessionId在两个机器间搬来搬去。
@@ -99,6 +88,8 @@ sessionID当数量增大到一定程度，会造成服务器压力。
  session id **集中存储**到一个地方， 所有的机器都来访问这个地方的数据 ，不用复制，但**增加了单点失败的可能性**，负责session的机器挂了，所有人都得重新登录。
 
 虽然 单点的机器也搞出集群，增加可靠性 ，但session是个沉重的负担。
+
+
 
 ### token工作原理
 

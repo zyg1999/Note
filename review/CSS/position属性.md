@@ -14,12 +14,6 @@
 - sticky(粘性定位)
 可以被认为是相对定位和固定定位的混合。元素在跨越特定阈值前为相对定位，之后为固定定位。position: sticky 对 table 元素的效果与 position: relative 相同。
 
-
-填充规则：
-
-- height和width 被设定为auto的绝对定位元素，按其内容大小调整尺寸。但，被绝对定位的元素可以通过指定top和bottom ，保留height未指定（即auto），来填充可用的垂直空间。它们同样可以通过指定left 和 right并将width 指定为auto来填充可用的水平空间。
-- top,bottom同时设定时top优先。left right同时设置，当 direction设置为 ltr（水平书写的中文、英语）时 left 优先， 当direction设置为 rtl（阿拉伯语、希伯来语、波斯语由右向左书写）时 right 优先。
-
 ### relative
 ```html
 <div class="first"></div>
