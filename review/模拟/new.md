@@ -7,10 +7,8 @@
 ### 模拟
 ```js
 Function.prototype.myNew = function() {
-  let obj = {}
-  let fn = [].shift.call(arguments)
-  obj.__proto__ = fn.prototype
-  let res = fn.apply(obj, arguments)
-  return typeof res === 'object' ? res : obj
+    let obj = Object.create(func.prototype)//原型
+    let res = fun.apply(obj,args)//初始化对象属性
+    return res instanceof object ? res:obj//返回值
 }
 ```

@@ -24,7 +24,8 @@ Ps:margin重叠时margin值计算方法：
 - 无正值，取小。
 
 	
-针对类型一：触发父级BFC（Block Formatting Context ），改变父级的渲染规则
+
+针对类型一：触发父级BFC（Block Formatting Context ），改变父级的渲染规则(子元素与父级不属于同一个BFC)
 
 * float的属性不是none; 
 * overflow的属性不是visible; 
@@ -49,7 +50,7 @@ Ps:margin重叠时margin值计算方法：
 }
 ```
   &nbsp; &nbsp; &nbsp;   在css中对垂直相邻块级元素作如上样式设置，我们期望的间距是60px,实际上，它们之间的距离只有40px。
-  
+
 **结论：两个垂直相邻的块级元素，当上下两个边距相遇时，起外边距会产生重叠现象，且重叠后的外边距，等于其中较大者。**
 
 针对类型二：
@@ -109,7 +110,7 @@ clear:both;
 **特点**
  - 内容决定元素所占位置
  - 不可以通过 CSS 改变宽高
- 
+
  例 span，strong，em，a，del等
 span 自带隐藏属性 display:inline; 可以通过改成 block 变成块级元素
  #### 2.块级元素，block
