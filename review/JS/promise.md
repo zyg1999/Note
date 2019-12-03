@@ -1,9 +1,25 @@
-### promise 三种状态
-- `pending`未完成
-- `resolve`成功
-- `reject`失败
->-  promise 初始状态为peding,操作结束后，可能变为resolve或reject
-> - 一旦状态改变，不会再变
+### promise
+
+Promise` 翻译过来就是承诺的意思，这个承诺会在未来有一个确切的答复，并且该承诺有三种状态，这个承诺一旦从等待状态变成为其他状态就永远不能更改状态了。
+
+ - 等待中（pending）
+ - 完成了（resolved）
+ - 拒绝了（rejected）
+
+当我们在构造 Promise 的时候，构造函数内部的代码是立即执行的。
+
+```js
+new Promise((resolve, reject) => {
+  console.log('new Promise')
+  resolve('success')
+})
+console.log('finifsh')
+
+// 先打印new Promise， 再打印 finifsh
+```
+
+Promise 实现了链式调用，也就是说**每次调用 then 之后返回的都是一个全新的 Promise**，原因也是因为状态不可变。如果你**在 then 中 使用了 return，那么 return 的值会被 Promise.resolve() 包装**。
+
 ### promise 用法
 #### **构造实例**
 - 接收一个函数作为参数，这个函数有两个函数参数。分别将promise从pending改为成功/失败状态。js引擎提供，不需自己部署。
@@ -13,7 +29,7 @@ const promise = new Promise(function(resolve, reject) {})
 #### **`then(function(value){},function(err){})`**
 - then方法接收两个函数（第二个可选），分别为resolve和reject状态的回调函数
 - 这两个函数都接受promise传出的值作为参数
-- then方法返回的是一个新的Promise实例。因此可采用链式写法，前一个状态改变，才会进到下一个
+- **then方法返回的是一个新的Promise实例**。因此可采用链式写法，前一个状态改变，才会进到下一个
 ```js
 const promise = new Promise(function(resolve, reject) {
   resolve(1)

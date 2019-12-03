@@ -134,7 +134,7 @@ d()     //相当于window.d() window
 var name1 = 1;
 
 function test() {
-	let name1 = 'kin';
+	var name1 = 'kin';
 	let a = {
 		name1: 'jack',
 		fn: () => {
@@ -153,4 +153,5 @@ test().fn() // ?
 因为fn处绑定的是箭头函数，箭头函数并不创建this，它只会从自己的作用域链的上一层继承this。这里它的上一层是test()，非严格模式下test中this值为window。 
 
  - 如果在绑定fn的时候使用了function，那么答案会是 'jack'
- - 如果第一行的 var 改为了 let，那么答案会是 undefind， 因为let不会挂到window上
+
+- 如果将test第一行name1前面的`var`去掉则，答案为kin

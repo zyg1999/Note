@@ -1,5 +1,24 @@
+### Object.definePropety
+
+es5中，定义对象新属性或修改现有属性，返回这个对象
+
+` Object.defineProperty(obj, 属性名, 描述符) `描述符为非必需，但字段必须，就是说不定义也要写个`{}`
+
+```js
+let obj={}
+Object.definedPropety(obj,"num",{
+    value:1,
+    writable:true,//可以被写
+    enumerable:true,//可以枚举
+    configurable:true,//能够改变和删除
+    get:function(){return value},//取
+    set:function(nv){value=nv}//存
+})
+```
+
 ### proxy
-用于修改某些操作的默认行为。可理解为在目标对象之前架设一层“拦截”。
+
+用于修改某些操作的默认行为。可理解为在目标对象之前架设一层“拦截”。无需一层层递归为每个属性添加代理，一次即可完成以上操作，性能上更好， 可以重定义更多的行为，比如 **in、delete、函数调用**等更多行为。 
 ### 用法
 ```js
 const proxy = {
@@ -9,6 +28,39 @@ const proxy = {
 }
 ```
 > 如果new Proxy({}, {})，那么直接落到被代理的对象身上。
+`target` 代表需要添加代理的对象，`handler` 用来自定义对象中的操作，比如可以用来自定义 set 或者 get 函数。
+
+```js
+let onWatch = (obj, setBind, getLogger) => {
+  let handler = {
+    set(target, property, value, receiver) {
+      setBind(value, property)
+      return Reflect.set(target, property, value)
+    },
+    get(target, property, receiver) {
+      getLogger(target, property)
+      return Reflect.get(target, property, receiver)
+    }
+  }
+  return new Proxy(obj, handler)
+}
+
+let obj = { a: 1 }
+let p = onWatch(
+  obj,
+  (v, property) => {
+    console.log(`监听到属性${property}改变为${v}`)
+  },
+  (target, property) => {
+    console.log(`'${property}' = ${target[property]}`)
+  }
+)
+p.a = 2 // 控制台输出：监听到属性a改变
+p.a // 'a' = 2
+```
+
+自定义 set 和 get 函数的方式，在原本的逻辑中插入了我们的函数逻辑，实现了在对对象任何属性进行读写时发出通知。
+
 ### 其他拦截
 - has(target, key): 拦截key in obj
 - deleteProperty(target, key): 拦截delete obj.key

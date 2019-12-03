@@ -13,6 +13,8 @@
 对象脱离标准文档流，通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素位置不随屏幕滚动改变。fixed 属性会创建新的层叠上下文。**当元素祖先的 transform  属性非 none 时，容器由视口改为该祖先。**
 
 > 原因： transform 值不为 `none` 的元素会创建一个 容器块，（盒元素定位和大小一般参考容器块进行计算），然后该元素的 `fixed` 子元素会相对该元素进行定位。 
+>
+> transform另一个特性： transform 值不为 `none` 的元素会创建一个 `stacking context`（层叠上下文 ）
 
 - sticky(粘性定位)
 可以被认为是相对定位和固定定位的混合。元素在跨越特定阈值前为相对定位，之后为固定定位。position: sticky 对 table 元素的效果与 position: relative 相同。
