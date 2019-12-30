@@ -28,10 +28,8 @@
 <script>
 export default{
   computed: {
-   activeUsers: function () {
-       return this.users.filter(function (user) {
-       return user.isActive
-   })
+   activeUsers() {
+       return this.users.filter(user=>user.isActive)
    }
  }
 }
@@ -55,4 +53,4 @@ export default{
 
 **对比**
 
-方案1，性能消耗比较大；方案2
+方案1，性能消耗比较大；方案2则不会
